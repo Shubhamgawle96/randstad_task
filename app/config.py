@@ -1,0 +1,6 @@
+import os
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    WHO_URL = os.environ.get('who_url') or 'https://query.data.world/s/rvgwskwqfej4ns6ftn662qsuxpgk73'
+    COVID_URL = os.environ.get('covid_url') or 'https://storage.googleapis.com/kagglesdsdata/datasets/494766/1402868/country_wise_latest.csv?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20210507%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20210507T110145Z&X-Goog-Expires=259199&X-Goog-SignedHeaders=host&X-Goog-Signature=2e35579b41755e849e69918c8ec1e0b32840b73326818811b5645001acc58cc1a1a24b8f19698d330ad00f2d33e515995b724181cfea1971f4eda8a262fed7c93649fbfd02e2ebaa606085355ea2448fbbebb6bb5198973549092c814cfd693ece2101ac0e07d858ebb249592625206023e59bdc1f9b9204eb6514fe97094055b3f75aa7e6bf006267f98bf1611f904d540bea2681d8c8a5aa46197116a514ecccf35bfc9b1be6fd94fdcd2bea6a64022d18312f26038c8b19c8d31201f3b7a6fc6ba752f1e2ff57359697a0cb49edfb45f877b3c45ba39876e656a292671f5cf1685b01b645120dc0bd0cc44acbfb7918bda5b76d4dccbef63818a180fe329d'

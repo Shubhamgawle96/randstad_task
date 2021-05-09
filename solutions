@@ -81,7 +81,7 @@ STATEMENT EXPLANATION:
 1-As from "\nSCENARIO 2" we know that my_func_wd is instance of class 'my_cls_info()' and its called as a function my_func_wd().
 2-So the __call__ method will execute and print:
     CLASS CALL
-    FUNCTION NAME:  my_func_wd and return None.
+    FUNCTION NAME:  my_func_wd and "return None".
 3-So while accessing get_no_chars method/attribute of my_func_wd() we are getting exception "'NoneType' object has no attribute 'get_no_chars'".
 
 EXECUTION RESULT:
@@ -247,11 +247,6 @@ def salary_person(base_salary,tax_percent):
 
 salary_person.set_exp(20)
 salary_person(2000, 0.20)
-
-
-
-
-
 
 
 
