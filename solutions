@@ -1,0 +1,265 @@
+print("\nSCENARIO 1", "__________________________")
+# Explain the below code statements
+# ------------------------------------------------------------------
+my_func_res1 = my_cls_info(my_func_nod)  # CODEBLK 96
+my_func_res1.get_no_chars()
+
+Statement Explanation:
+1- An instance 'my_func_res1' of class 'my_cls_info()' is created and 'my_func_nod' object is passed as a parameter.
+2- As instance of the class 'my_cls_info()' is created, the constructor get called and instance attribute f is set to my_func_nod and arg set to "".
+3- Instance method 'get_no_chars()' is called for 'my_func_res1' instance of class 'my_cls_info'.
+4- 'get_no_chars()' will be executed with var y = return of function 'my_func_nod'
+
+EXECUTION RESULT:
+CLASS INIT
+Call from func:  I like decoration. But I don't have a decorator. Sad!
+NO OF CHARS IN STR:  53
+INFO: I like decoration. But I don't have a decorator. Sad!
+
+####################################################################################################
+print("\nSCENARIO 2", "__________________________")
+# Explain the functionality of my_func_wd in this code. Explain the output.
+# ------------------------------------------------------------------
+my_func_wd()  # CODEBLK 98
+
+Statement Explanation:
+1-As my_func_wd is decorated by class 'my_cls_info' so its an instance of class 'my_cls_info' and is being called as a function.
+2-constructor get called and instance attribute fun = my_func_wd. now the __call__ method gets called because instance is called as function.
+3-the __call__ method prints :
+     print("CLASS CALL")
+     print("FUNCTION NAME: ", self.func.__name__)
+4- there is no return statement so the execution stops here None is returned.
+
+EXECUTION RESULT:
+CLASS INIT
+CLASS CALL
+FUNCTION NAME:  my_func_wd
+
+#################################################################################################
+print("\nSCENARIO 2a", "__________________________")
+# Explain the functionality of my_func_wd in this code. Explain the output.
+my_func_wd.get_no_chars()  # CODEBLK 100
+
+STATEMENT EXPLANATION:
+1- my_func_wd is instance of class 'my_cls_info' but it is not called as a function. the __call__ method wont execute.
+2- my_func_wd = my_class_info(my_func_wd)
+3- my_func_wd.get_no_chars() will call get_no_chars() method with y = my_func_wd() and print:
+    NO OF CHARS IN STR:  45
+    INFO: I like decoration. I have a decorator. Lucky!
+4-There is no return statement so None will be returned
+
+EXECUTION RESULT:
+CLASS INIT
+Call from func:  I like decoration. I have a decorator. Lucky!
+NO OF CHARS IN STR:  45
+INFO: I like decoration. I have a decorator. Lucky!
+
+#######################################################################################################
+print("\nSCENARIO 2b", "__________________________")
+# Note: This code line below is similar to CODEBLK 100. And yet it throws error ? Why ?
+try:
+    my_func_nod.get_no_chars()  # CODEBLK 101.
+except Exception as ex:
+    print("Exception raised: ", ex)
+
+STATEMENT EXPLANATION:
+1-my_func_nod is not decorated. its normal function. it is not an instance of a class.
+2-So thats why exception "'function' object has no attribute 'get_no_chars'" is raised.
+
+EXECUTION RESULT:
+Exception raised:  'function' object has no attribute 'get_no_chars'
+
+###############################################################################################################
+print("\nSCENARIO 3", "__________________________")
+# This CODEBLK 102  below is similar to CODEBLK 100. And yet it throws error ? Why? Please explain conceptually.
+try:
+    my_func_wd().get_no_chars()  # CODEBLK 102
+except Exception as ex:
+    print("Exception raised: ", ex)
+
+STATEMENT EXPLANATION:
+1-As from "\nSCENARIO 2" we know that my_func_wd is instance of class 'my_cls_info()' and its called as a function my_func_wd().
+2-So the __call__ method will execute and print:
+    CLASS CALL
+    FUNCTION NAME:  my_func_wd and return None.
+3-So while accessing get_no_chars method/attribute of my_func_wd() we are getting exception "'NoneType' object has no attribute 'get_no_chars'".
+
+EXECUTION RESULT:
+CLASS INIT
+CLASS CALL
+FUNCTION NAME:  my_func_wd
+Exception raised:  'NoneType' object has no attribute 'get_no_chars'
+
+##################################################################################################################
+# QUESTION 1
+# The below CODEBLK 103 returns a positive value of net salary after taxes.
+# But we want to add $777 for salaries greater than 1000, as a bonus to the salary. We do not want to modify the current function.
+# Use the concept of decorator and use the function "add_bonus" in the class to achieve the desired result.
+salary_person(2000, 0.20)  # CODEBLK 103
+
+SOLUTION:
+1-To add $777 for salary greater than 1000, we can use 'my_cls_info' as decorator.
+2-Decorate the 'salary_person' function with 'my_cls_info':
+
+    @my_cls_info
+    def salary_person(base_salary,tax_percent):
+        tax_amt = base_salary*tax_percent
+        net_salary=base_salary-tax_amt
+        print(net_salary)
+        return net_salary
+
+3-Add the fllowing line to the end of __call__ method of class 'my_cls_info':
+    self.add_bonus()
+4-Call the salary_person function:
+    salary_person(2000, 0.20)
+
+EXECUTION RESULT:
+CLASS INIT
+CLASS CALL
+FUNCTION NAME:  salary_person
+1600.0
+NET SALARY WITH BONUS:  2377.0
+
+CODE:
+class my_cls_info:
+    def __init__(self, f):
+        print("CLASS INIT")
+        self.func = f
+        self.arg = ""
+
+    def __call__(self, *args):
+        self.arg = args
+        print("CLASS CALL")
+        print("FUNCTION NAME: ", self.func.__name__)
+        self.add_bonus()
+        # return self.func(*args)
+
+    def get_no_chars(self):
+        y = self.func()
+        if type(y)==str:
+            print("NO OF CHARS IN STR: ",len(y), "\nINFO:", y)
+        else:
+            print("RETURNED INFO: ", y)
+
+    def add_bonus(self):
+        args = self.arg
+        z = self.func(args[0],args[1])
+        if args[0]>1000:
+            print("NET SALARY WITH BONUS: ", z+777)
+        else:
+            print("NET SALARY WITHOUT BONUS: ", z)
+
+
+
+@my_cls_info
+def salary_person(base_salary,tax_percent):
+    tax_amt = base_salary*tax_percent
+    net_salary=base_salary-tax_amt
+    print(net_salary)
+    return net_salary
+
+salary_person(2000, 0.20)
+
+############################################################################################
+# QUESTION 2
+# Suppose you want to add "yrs of experience" as the third parameter to calculate bonus. If yrs_experience > 10, then add $777
+# Can you do it without modifying either the body or the arguments of the current function 'salary_person' ? You can modify the "add_bonus".
+
+SOLUTION:
+1-We can use getter and setter to add "yrs of experience" as the third parameter to calculate bonus.
+2-Append following getter and setter methods to the class:
+     # function to get value of _exp
+    def get_exp(self):
+        print("getter method called")
+        return self._exp
+
+    # function to set value of _exp
+    def set_exp(self, a):
+        print("setter method called")
+        self._exp = a
+3-Set self._exp = 0 (private attribute) in constructor.
+4-Set experience using setter:
+    salary_person.set_exp(20)
+5-call salary_person(2000, 0.20) function.
+
+EXECUTION RESULT:
+CLASS INIT
+setter method called
+CLASS CALL
+FUNCTION NAME:  salary_person
+1600.0
+NET SALARY WITH BONUS and Experience 20:  3154.0
+
+CODE:
+class my_cls_info:
+    def __init__(self, f):
+        print("CLASS INIT")
+        self.func = f
+        self.arg = ""
+        self._exp = 0
+
+    # function to get value of _exp
+    def get_exp(self):
+        print("getter method called")
+        return self._exp
+
+    # function to set value of _exp
+    def set_exp(self, a):
+        print("setter method called")
+        self._exp = a
+
+
+    def __call__(self, *args):
+        self.arg = args
+        print("CLASS CALL")
+        print("FUNCTION NAME: ", self.func.__name__)
+        self.add_bonus()
+        # return self.func(*args)
+
+    def get_no_chars(self):
+        y = self.func()
+        if type(y)==str:
+            print("NO OF CHARS IN STR: ",len(y), "\nINFO:", y)
+        else:
+            print("RETURNED INFO: ", y)
+
+    def add_bonus(self):
+        args = self.arg
+        z = self.func(args[0],args[1])
+        if args[0]>1000 and self._exp > 10:
+            print("NET SALARY WITH BONUS and Experience {}: ".format(self._exp), z+777+777)
+        elif args[0]>1000 and self._exp <= 10:
+            print("NET SALARY WITH BONUS and Experience {}: ".format(self._exp), z+777)
+        elif args[0]<1000 and self._exp > 10:
+            print("NET SALARY Without BONUS and Experience {}: ".format(self._exp), z+777)
+        elif args[0]<1000 and self._exp <= 10:
+            print("NET SALARY Without BONUS", z)
+
+
+
+@my_cls_info
+def salary_person(base_salary,tax_percent):
+    tax_amt = base_salary*tax_percent
+    net_salary=base_salary-tax_amt
+    print(net_salary)
+    return net_salary
+
+
+salary_person.set_exp(20)
+salary_person(2000, 0.20)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
