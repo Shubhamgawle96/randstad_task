@@ -1,6 +1,6 @@
 Q1-Explain why you chose that python library (pandas or pyspark)?
 Ans: I chose pandas because:
-        1-With Pandas, we can easily read CSV files with read_csv() but But CSV is not supported natively by Spark.
+        1-With Pandas, we can easily read CSV files with read_csv() but CSV is not supported natively by Spark.
         2-With Pandas,we dont need to take care of types,they are inferred automatically whereas in Spark DataFrames loaded from CSV files, default types are assumed to be “strings”.
         3-Pandas API are convenient and powerful and I had previous experience with pandas.
 
